@@ -143,6 +143,12 @@ class GandiModule(GandiConfig):
         except MissingConfiguration:
             if not empty_key:
                 return []
+        sharing_id = cls.get('apirest.sharing_id')
+        if sharing_id:
+            if '?' in url:
+                url = '%s&sharing_id=%s' % (url, sharing_id)
+            else:
+                url = '%s?sharing_id=%s' % (url, sharing_id)            
         # make the call
         cls.debug('calling url: %s %s' % (method, url))
         cls.debug('with params: %r' % kwargs)
